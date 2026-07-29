@@ -3,7 +3,7 @@
 body { margin: 0; overflow: hidden; }
 canvas { position: fixed; inset: 0; display: block; z-index: 0; }
 #app { min-height: 100dvh; }
-.brand, .objective, .hud, .controls, .catch-prompt, .orb-bag, .orb-warning, .message, .start-button, .city-view-button, .brissydex-button, .dex-popout, .music-button { position: fixed; z-index: 2; }
+.brand, .objective, .sighting-hint, .hud, .controls, .catch-prompt, .orb-bag, .orb-warning, .message, .start-button, .city-view-button, .brissydex-button, .dex-popout, .music-button { position: fixed; z-index: 2; }
 .brand { top: 24px; left: 26px; display: flex; gap: 10px; align-items: center; color: #fffdf4; text-shadow: 0 2px 8px rgba(15, 48, 35, .35); }
 .brand > span { font-size: 2rem; }
 .brand strong, .brand small { display: block; }
@@ -12,6 +12,9 @@ canvas { position: fixed; inset: 0; display: block; z-index: 0; }
 .music-button { top: 92px; left: 26px; padding: 8px 11px; border: 1px solid rgba(255,255,255,.62); border-radius: 10px; color: #244a3c; background: rgba(255,253,239,.86); box-shadow: 0 8px 20px rgba(28,78,52,.13); cursor: pointer; font: inherit; font-size: .7rem; font-weight: 800; }
 .music-button.is-playing { color: #fffdf4; background: rgba(30,112,76,.9); }
 .objective { top: 27px; left: 50%; max-width: min(450px, calc(100vw - 300px)); padding: 11px 16px; border: 1px solid rgba(255,255,255,.6); border-radius: 999px; color: #244a3c; background: rgba(255,253,239,.83); box-shadow: 0 8px 25px rgba(28,78,52,.16); font-size: .86rem; font-weight: 700; transform: translateX(-50%); text-align: center; }
+.sighting-hint { top: 76px; left: 50%; display: grid; gap: 1px; min-width: 210px; padding: 7px 13px; border: 1px solid rgba(255,255,255,.48); border-radius: 11px; color: #fffdf4; background: rgba(30,112,76,.68); box-shadow: 0 8px 22px rgba(22,66,45,.17); backdrop-filter: blur(7px); transform: translateX(-50%); text-align: center; }
+.sighting-hint span { color: #d5f5c8; font-family: ui-monospace, Menlo, monospace; font-size: .55rem; letter-spacing: .08em; text-transform: uppercase; }
+.sighting-hint strong { font-size: .72rem; }
 .city-view-button { top: 27px; right: 272px; padding: 10px 13px; border: 1px solid rgba(255,255,255,.68); border-radius: 12px; color: #244a3c; background: rgba(255,253,239,.88); box-shadow: 0 8px 20px rgba(28,78,52,.13); cursor: pointer; font: inherit; font-size: .76rem; font-weight: 800; }
 .city-view-button kbd { margin-left: 4px; border-color: rgba(36,74,60,.28); background: rgba(36,74,60,.1); }
 .brissydex-button { top: 27px; right: 26px; padding: 10px 13px; border: 1px solid rgba(255,255,255,.68); border-radius: 12px; color: #244a3c; background: rgba(255,253,239,.88); box-shadow: 0 8px 20px rgba(28,78,52,.13); cursor: pointer; font: inherit; font-size: .76rem; font-weight: 800; }
@@ -72,4 +75,4 @@ kbd { display: inline-grid; min-width: 20px; height: 20px; place-items: center; 
 .city-view .crosshair, .city-view .catch-prompt, .city-view .orb-bag, .city-view .orb-warning, .city-view .start-button { display: none; }
 .city-view .controls strong { font-size: 1.15rem; }
 .city-view .controls strong::after { content: " — City View"; color: #dff6eb; }
-@media (max-width: 720px) { .objective { top: 87px; max-width: calc(100vw - 32px); } .music-button { top: 132px; left: 12px; } .city-view-button { top: 132px; right: 12px; } .brissydex-button { top: 177px; right: 12px; } .hud { top: auto; right: 12px; bottom: 12px; width: 185px; transform: scale(.86); transform-origin: bottom right; } .dex-popout { width: min(330px, calc(100vw - 30px)); padding: 22px; } .controls { left: 14px; bottom: 15px; max-width: 175px; } .controls span { display: none; } .orb-bag { right: 12px; bottom: 166px; transform: scale(.86); transform-origin: bottom right; } .orb-warning { right: 12px; bottom: 222px; transform: scale(.86); transform-origin: bottom right; } .catch-prompt { bottom: 93px; width: calc(100vw - 28px); justify-content: space-between; } .catch-prompt span { white-space: normal; } .message { bottom: 160px; } }
+@media (max-width: 720px) { .objective { top: 87px; max-width: calc(100vw - 32px); } .sighting-hint { top: 132px; min-width: 190px; } .music-button { top: 176px; left: 12px; } .city-view-button { top: 176px; right: 12px; } .brissydex-button { top: 221px; right: 12px; } .hud { top: auto; right: 12px; bottom: 12px; width: 185px; transform: scale(.86); transform-origin: bottom right; } .dex-popout { width: min(330px, calc(100vw - 30px)); padding: 22px; } .controls { left: 14px; bottom: 15px; max-width: 175px; } .controls span { display: none; } .orb-bag { right: 12px; bottom: 166px; transform: scale(.86); transform-origin: bottom right; } .orb-warning { right: 12px; bottom: 222px; transform: scale(.86); transform-origin: bottom right; } .catch-prompt { bottom: 93px; width: calc(100vw - 28px); justify-content: space-between; } .catch-prompt span { white-space: normal; } .message { bottom: 160px; } }

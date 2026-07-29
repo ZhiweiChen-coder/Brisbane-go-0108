@@ -5,6 +5,7 @@ const app = document.querySelector("#app");
 const guideList = document.querySelector("#guideList");
 const guideCount = document.querySelector("#guideCount");
 const objective = document.querySelector("#objective");
+const sightingHint = document.querySelector("#sightingHint");
 const catchPrompt = document.querySelector("#catchPrompt");
 const catchPromptText = document.querySelector("#catchPromptText");
 const catchButton = document.querySelector("#catchButton");
@@ -128,6 +129,14 @@ const spawnSites = [
   new THREE.Vector3(-26, 0, 1), new THREE.Vector3(4, 0, -15), new THREE.Vector3(16, 0, 5),
   new THREE.Vector3(-35, 0, 37), new THREE.Vector3(-39, 0, -23), new THREE.Vector3(-10, 0, 42),
   new THREE.Vector3(7, 0, 38), new THREE.Vector3(-42, 0, 6)
+];
+const districts = [
+  { name: "Botanic Gardens", position: new THREE.Vector3(-25, 0, 39) },
+  { name: "West End Laneway", position: new THREE.Vector3(-36, 0, -23) },
+  { name: "South Bank", position: new THREE.Vector3(-22, 0, -27) },
+  { name: "Story Bridge Park", position: new THREE.Vector3(2, 0, -8) },
+  { name: "Brisbane Riverwalk", position: new THREE.Vector3(10, 0, 16) },
+  { name: "Queen's Wharf", position: new THREE.Vector3(6, 0, -31) }
 ];
 
 function createCatchOrb() {
@@ -723,6 +732,16 @@ function chooseRandom(items) {
   return items[Math.floor(Math.random() * items.length)];
 }
 
+function districtFor(position) {
+  return districts.reduce((nearest, district) => position.distanceToSquared(district.position) < position.distanceToSquared(nearest.position) ? district : nearest).name;
+}
+
+function updateObjective() {
+  objective.textContent = catches.size === creatures.length
+    ? "Brissydex complete — Brisbane wildlife discovered!"
+    : `${creatures.length - catches.size} creatures still waiting to be discovered.`;
+}
+
 function activateNextSighting() {
   const candidates = creatureObjects.filter((creature) => !creature.userData.caught && !creature.visible);
   if (candidates.length === 0) return;
@@ -733,13 +752,17 @@ function activateNextSighting() {
   const site = chooseRandom(freeSites.length ? freeSites : fallbackSites.length ? fallbackSites : spawnSites);
   creature.position.copy(site).add(new THREE.Vector3((Math.random() - 0.5) * 1.2, 0, (Math.random() - 0.5) * 1.2));
   creature.userData.baseY = 0;
+  creature.userData.homePosition = creature.position.clone();
+  creature.userData.district = districtFor(creature.position);
+  creature.userData.behaviourPhase = Math.random() * Math.PI * 2;
   creature.visible = true;
-  showMessage(`New sighting: ${creature.userData.name} ${creature.userData.habitat}.`);
+  sightingHint.innerHTML = `<span>Latest sighting</span><strong>Explore ${creature.userData.district}</strong>`;
+  showMessage(`A wildlife sighting was reported around ${creature.userData.district}.`);
 }
 
 function seedSightings() {
   for (let index = 0; index < 6; index += 1) activateNextSighting();
-  objective.textContent = "Six wildlife sightings are active — explore the river city.";
+  updateObjective();
 }
 
 function renderGuide() {
@@ -852,7 +875,7 @@ function captureCreature(target) {
   catchPrompt.classList.add("is-hidden");
   renderGuide();
   showMessage(`Caught ${data.name}! Added to your Brissydex — press B to learn more.`);
-  objective.textContent = catches.size === creatures.length ? "Field Guide complete — Brisbane wildlife discovered!" : `${creatures.length - catches.size} creatures still waiting to be discovered.`;
+  updateObjective();
   if (catches.size < creatures.length) setTimeout(activateNextSighting, 850);
 }
 
@@ -944,8 +967,26 @@ function updateCreatures(time) {
   let closestDistance = Infinity;
   creatureObjects.forEach((creature, index) => {
     if (creature.userData.caught || !creature.visible) return;
-    creature.rotation.y = Math.sin(time * 0.001 + index * 2) * 0.45;
-    creature.position.y = creature.userData.baseY + Math.sin(time * 0.002 + creature.userData.phase) * 0.06;
+    const data = creature.userData;
+    const home = data.homePosition || creature.position;
+    const kind = data.kind || data.id;
+    const phase = data.behaviourPhase || data.phase;
+    const clockTime = time * 0.001;
+    let radius = 0.24;
+    let pace = 0.72;
+    let hop = 0.035;
+    if (kind === "turkey" || kind === "ibis") { radius = 0.58; pace = 0.52; hop = 0.02; }
+    if (kind === "dragon") { radius = 0.36; pace = 0.42; hop = 0.008; }
+    if (kind === "possum") { radius = 0.3; pace = 0.38; hop = 0.05; }
+    if (data.id === "flying-fox") { radius = 0.7; pace = 0.65; hop = 1.15; }
+    const stride = clockTime * pace + phase;
+    const xOffset = Math.cos(stride) * radius;
+    const zOffset = Math.sin(stride * 0.82) * radius * 0.7;
+    creature.position.x = home.x + xOffset;
+    creature.position.z = home.z + zOffset;
+    creature.position.y = data.baseY + Math.abs(Math.sin(stride * 2.4)) * hop;
+    creature.rotation.y = Math.atan2(-Math.sin(stride * 0.82), Math.sin(stride));
+    creature.rotation.z = kind === "dragon" ? Math.sin(stride * 1.5) * 0.05 : 0;
     const distance = player.distanceTo(creature.position);
     if (distance < closestDistance) { closest = creature; closestDistance = distance; }
   });
