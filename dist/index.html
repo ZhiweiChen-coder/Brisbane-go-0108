@@ -5,12 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Brisbane Go, a 3D wildlife collecting game." />
     <title>Brisbane Go — 3D wildlife explorer</title>
-    <script type="module" crossorigin src="/assets/index-CWzQDsey.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-C9QKZ-fX.css">
+    <script type="module" crossorigin src="/assets/index-DSrQk37o.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-DdgZq9EO.css">
   </head>
   <body>
     <div id="app">
       <div class="brand"><span>🧭</span><div><strong>Brisbane Go</strong><small>3D wildlife explorer</small></div></div>
+      <button class="music-button" id="musicButton" type="button" aria-pressed="false">♫ Music on</button>
       <div class="objective" id="objective">Find a local creature in the park.</div>
       <button class="city-view-button" id="cityViewButton" type="button">View Brisbane <kbd>C</kbd></button>
       <button class="brissydex-button" id="brissydexButton" type="button">Brissydex <kbd>B</kbd></button>
@@ -20,11 +21,21 @@
         <div class="dex-detail" id="dexDetail">Catch a creature to unlock its Brisbane wildlife knowledge.</div>
         <div class="guide-list" id="guideList"></div>
       </aside>
+      <section class="dex-popout" id="dexPopout" role="dialog" aria-modal="true" aria-labelledby="dexPopoutName" hidden>
+        <button class="dex-popout-close" id="dexPopoutClose" type="button" aria-label="Close creature card">×</button>
+        <div class="dex-popout-icon" id="dexPopoutIcon" aria-hidden="true"></div>
+        <p class="dex-popout-species" id="dexPopoutSpecies"></p>
+        <h2 id="dexPopoutName"></h2>
+        <p class="dex-popout-found" id="dexPopoutFound"></p>
+        <p class="dex-popout-info" id="dexPopoutInfo"></p>
+        <div class="dex-fun-fact"><span>Fun fact</span><p id="dexPopoutFact"></p></div>
+      </section>
       <div class="controls" id="controls">
         <strong>Explore Brisbane's river city</strong>
         <span><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> move &nbsp; mouse / arrows look &nbsp; <kbd>Click</kbd> or <kbd>Space</kbd> throw orb</span>
       </div>
-      <div class="orb-bag" aria-label="Catch Orbs available"><span class="mini-orb" aria-hidden="true"></span><strong id="orbCount">20</strong><small>Catch Orbs</small></div>
+      <div class="orb-warning" id="orbWarning" role="status" aria-live="polite" hidden>Out of Catch Orbs — reload to refill.</div>
+      <div class="orb-bag" id="orbBag" aria-label="Catch Orbs available"><span class="mini-orb" aria-hidden="true"></span><strong id="orbCount">20</strong><small>Catch Orbs</small></div>
       <div class="catch-prompt is-hidden" id="catchPrompt"><span id="catchPromptText">A creature is nearby</span><button id="catchButton" type="button">Throw orb <kbd>Space</kbd></button></div>
       <div class="message" id="message" role="status" aria-live="polite"></div>
       <button class="start-button" id="startButton" type="button">Enter the park <span>Click to capture the mouse</span></button>
