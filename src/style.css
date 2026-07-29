@@ -1,0 +1,59 @@
+:root { font-family: Avenir Next, Avenir, Montserrat, system-ui, sans-serif; color: #17382d; background: #9edbed; }
+* { box-sizing: border-box; }
+body { margin: 0; overflow: hidden; }
+canvas { position: fixed; inset: 0; display: block; z-index: 0; }
+#app { min-height: 100dvh; }
+.brand, .objective, .hud, .controls, .catch-prompt, .orb-bag, .message, .start-button, .city-view-button, .brissydex-button { position: fixed; z-index: 2; }
+.brand { top: 24px; left: 26px; display: flex; gap: 10px; align-items: center; color: #fffdf4; text-shadow: 0 2px 8px rgba(15, 48, 35, .35); }
+.brand > span { font-size: 2rem; }
+.brand strong, .brand small { display: block; }
+.brand strong { font-size: 1.35rem; letter-spacing: -.04em; }
+.brand small { margin-top: 1px; font-family: ui-monospace, Menlo, monospace; font-size: .66rem; letter-spacing: .08em; text-transform: uppercase; }
+.objective { top: 27px; left: 50%; max-width: min(450px, calc(100vw - 300px)); padding: 11px 16px; border: 1px solid rgba(255,255,255,.6); border-radius: 999px; color: #244a3c; background: rgba(255,253,239,.83); box-shadow: 0 8px 25px rgba(28,78,52,.16); font-size: .86rem; font-weight: 700; transform: translateX(-50%); text-align: center; }
+.city-view-button { top: 27px; right: 272px; padding: 10px 13px; border: 1px solid rgba(255,255,255,.68); border-radius: 12px; color: #244a3c; background: rgba(255,253,239,.88); box-shadow: 0 8px 20px rgba(28,78,52,.13); cursor: pointer; font: inherit; font-size: .76rem; font-weight: 800; }
+.city-view-button kbd { margin-left: 4px; border-color: rgba(36,74,60,.28); background: rgba(36,74,60,.1); }
+.brissydex-button { top: 27px; right: 26px; padding: 10px 13px; border: 1px solid rgba(255,255,255,.68); border-radius: 12px; color: #244a3c; background: rgba(255,253,239,.88); box-shadow: 0 8px 20px rgba(28,78,52,.13); cursor: pointer; font: inherit; font-size: .76rem; font-weight: 800; }
+.brissydex-button kbd { margin-left: 4px; border-color: rgba(36,74,60,.28); background: rgba(36,74,60,.1); }
+.hud { top: 24px; right: 26px; width: 220px; max-height: calc(100dvh - 48px); padding: 15px; border: 1px solid rgba(255,255,255,.58); border-radius: 17px; background: rgba(255,253,239,.82); box-shadow: 0 12px 30px rgba(22,66,45,.19); backdrop-filter: blur(8px); overflow: auto; }
+.guide-title { display: flex; justify-content: space-between; margin-bottom: 11px; font-size: .9rem; font-weight: 800; }
+.guide-title strong { color: #2c7451; }
+.brissydex-close { width: 24px; height: 24px; border: 0; border-radius: 7px; color: #244a3c; background: #e3eadb; cursor: pointer; font: inherit; font-size: 1.15rem; line-height: 1; }
+.dex-detail { margin: 0 0 11px; padding: 10px; border: 1px solid #d9e5d5; border-radius: 10px; color: #496054; background: #f7fbf3; font-size: .72rem; line-height: 1.38; }
+.dex-detail p { margin: 0 0 5px; }
+.dex-detail h2 { margin: 0 0 4px; color: #234b39; font-size: .98rem; }
+.dex-species { color: #71877b; font-family: ui-monospace, Menlo, monospace; font-size: .59rem; }
+.guide-list { display: grid; gap: 6px; }
+.guide-entry { display: grid; width: 100%; border: 0; grid-template-columns: 22px 1fr; gap: 7px; align-items: center; padding: 6px; border-radius: 8px; color: #6c7d71; background: rgba(225,231,217,.67); font: inherit; text-align: left; }
+.guide-entry.caught { color: #244a3c; background: #e5f2cf; }
+.guide-entry.caught { cursor: pointer; }
+.guide-entry.selected { outline: 2px solid #57a776; outline-offset: -2px; }
+.guide-entry > span { display: grid; width: 20px; height: 20px; place-items: center; border-radius: 50%; color: #fff; background: #91a59a; font-family: ui-monospace, Menlo, monospace; font-size: .75rem; }
+.guide-entry.caught > span { background: #3d9661; }
+.guide-entry strong, .guide-entry small { display: block; }
+.guide-entry strong { font-size: .68rem; }
+.guide-entry small { margin-top: 1px; font-family: ui-monospace, Menlo, monospace; font-size: .55rem; }
+.controls { bottom: 25px; left: 25px; color: #fffdf4; text-shadow: 0 2px 8px rgba(15,48,35,.44); }
+.controls strong, .controls span { display: block; }
+.controls strong { margin-bottom: 5px; font-size: 1rem; }
+.controls span { font-family: ui-monospace, Menlo, monospace; font-size: .7rem; line-height: 1.55; }
+.orb-bag { right: 26px; bottom: 26px; display: grid; grid-template-columns: 30px auto; column-gap: 7px; align-items: center; padding: 9px 12px; border: 1px solid rgba(255,255,255,.58); border-radius: 14px; color: #244a3c; background: rgba(255,253,239,.86); box-shadow: 0 10px 26px rgba(22,66,45,.16); backdrop-filter: blur(8px); }
+.mini-orb { grid-row: span 2; width: 27px; height: 27px; border: 3px solid #193e43; border-radius: 50%; background: linear-gradient(#fff6da 0 45%, #193e43 46% 53%, #168c83 54% 100%); box-shadow: inset 0 0 0 3px rgba(255,255,255,.28); }
+.orb-bag strong { font-size: .9rem; line-height: 1; }
+.orb-bag small { font-family: ui-monospace, Menlo, monospace; font-size: .55rem; letter-spacing: .04em; text-transform: uppercase; }
+kbd { display: inline-grid; min-width: 20px; height: 20px; place-items: center; border: 1px solid rgba(255,255,255,.66); border-radius: 4px; background: rgba(255,255,255,.22); font: inherit; }
+.catch-prompt { bottom: 25px; left: 50%; display: flex; gap: 13px; align-items: center; padding: 10px 11px 10px 17px; border-radius: 14px; color: #17382d; background: #fffced; box-shadow: 0 10px 34px rgba(18,59,39,.25); transform: translateX(-50%); transition: opacity .15s, transform .15s; }
+.catch-prompt.is-hidden { opacity: 0; pointer-events: none; transform: translateX(-50%) translateY(12px); }
+.catch-prompt span { font-size: .78rem; font-weight: 700; white-space: nowrap; }
+.catch-prompt button { padding: 8px 11px; border: 0; border-radius: 9px; color: white; background: #1e704c; cursor: pointer; font: inherit; font-size: .75rem; font-weight: 800; }
+.catch-prompt kbd { margin-left: 3px; height: 16px; min-width: 16px; font-size: .62rem; }
+.crosshair { position: fixed; z-index: 1; top: 50%; left: 50%; width: 10px; height: 10px; border: 2px solid rgba(255,255,255,.8); border-radius: 50%; transform: translate(-50%, -50%); box-shadow: 0 1px 4px rgba(0,0,0,.25); pointer-events: none; }
+.start-button { top: 50%; left: 50%; display: grid; gap: 5px; min-width: 230px; padding: 15px 21px; border: 0; border-radius: 14px; color: #fff; background: #1e704c; box-shadow: 0 9px 0 #10452d, 0 18px 45px rgba(14,54,36,.36); cursor: pointer; font: inherit; font-weight: 800; transform: translate(-50%, -50%); transition: opacity .2s, transform .2s; }
+.start-button:hover { transform: translate(-50%, calc(-50% - 3px)); }
+.start-button span { color: #cbefd7; font-family: ui-monospace, Menlo, monospace; font-size: .62rem; font-weight: 400; }
+.start-button.is-hidden { opacity: 0; pointer-events: none; }
+.message { bottom: 96px; left: 50%; max-width: min(520px, calc(100vw - 40px)); padding: 12px 17px; border-radius: 12px; color: #19462f; background: #e5f5cd; box-shadow: 0 8px 30px rgba(22,66,45,.2); font-size: .86rem; font-weight: 700; opacity: 0; transform: translate(-50%, 10px); transition: opacity .2s, transform .2s; text-align: center; pointer-events: none; }
+.message.visible { opacity: 1; transform: translate(-50%, 0); }
+.city-view .crosshair, .city-view .catch-prompt, .city-view .orb-bag, .city-view .start-button { display: none; }
+.city-view .controls strong { font-size: 1.15rem; }
+.city-view .controls strong::after { content: " — City View"; color: #dff6eb; }
+@media (max-width: 720px) { .objective { top: 87px; max-width: calc(100vw - 32px); } .city-view-button { top: 132px; right: 12px; } .brissydex-button { top: 177px; right: 12px; } .hud { top: auto; right: 12px; bottom: 12px; width: 185px; transform: scale(.86); transform-origin: bottom right; } .controls { left: 14px; bottom: 15px; max-width: 175px; } .controls span { display: none; } .orb-bag { right: 12px; bottom: 166px; transform: scale(.86); transform-origin: bottom right; } .catch-prompt { bottom: 93px; width: calc(100vw - 28px); justify-content: space-between; } .catch-prompt span { white-space: normal; } .message { bottom: 160px; } }
