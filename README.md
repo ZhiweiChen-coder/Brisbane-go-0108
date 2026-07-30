@@ -1,6 +1,6 @@
 # Brisbane Go — 3D wildlife explorer
 
-Brisbane Go is a playable low-poly 3D game, built for a Codex live demo. Explore an original Brisbane-inspired park, find local wildlife, and catch them in the Field Guide.
+Brisbane Go is a playable low-poly 3D game, built for a Codex live demo. Explore an original Brisbane-inspired park, find local wildlife, and catalogue them in the Brissydex.
 
 ## Run it
 
@@ -19,9 +19,10 @@ Open the local URL printed by Vite. Click **Enter the park** to capture the mous
 - First-person exploration with mouse-look and keyboard movement.
 - Fifteen handcrafted low-poly local wildlife characters drawn from Brisbane's parks, riverfront, gardens, and city edges.
 - Six wildlife sightings are active at once; catching one triggers a fresh random sighting somewhere else in the world.
-- A visible, physics-style thrown Catch Orb and a live Field Guide.
+- A visible, physics-style thrown Catch Orb and a live Brissydex.
+- Discovered Brissydex entries reveal locally stored wildlife photographs; see [photo credits](PHOTO_CREDITS.md).
 - Recognisable 3D Brisbane landmarks: Story Bridge, Wheel of Brisbane, Queen's Wharf, and the riverfront.
-- No external art assets, game API, GPS, account, or Pokemon content.
+- No runtime game API, GPS, account, or Pokémon content. Brissydex photos are bundled locally after download.
 
 ## Live-demo prompts
 

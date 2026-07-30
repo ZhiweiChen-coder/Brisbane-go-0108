@@ -21,7 +21,7 @@ const brissydexClose = document.querySelector("#brissydexClose");
 const dexDetail = document.querySelector("#dexDetail");
 const dexPopout = document.querySelector("#dexPopout");
 const dexPopoutClose = document.querySelector("#dexPopoutClose");
-const dexPopoutIcon = document.querySelector("#dexPopoutIcon");
+const dexPopoutPhoto = document.querySelector("#dexPopoutPhoto");
 const dexPopoutSpecies = document.querySelector("#dexPopoutSpecies");
 const dexPopoutName = document.querySelector("#dexPopoutName");
 const dexPopoutFound = document.querySelector("#dexPopoutFound");
@@ -86,6 +86,11 @@ const creatureIcons = {
   ibis: "🪶", turkey: "🦃", cockatoo: "🦜", dragon: "🦎", possum: "🐾",
   lorikeet: "🦜", kookaburra: "🐦", pelican: "🪶", "flying-fox": "🦇", magpie: "🐦",
   curlew: "🐦", "king-parrot": "🦜", "blue-tongue": "🦎", currawong: "🐦", plover: "🐦"
+};
+const creaturePhotos = {
+  ibis: "/animals/ibis.jpg", turkey: "/animals/turkey.jpg", cockatoo: "/animals/cockatoo.jpg", dragon: "/animals/dragon.jpg", possum: "/animals/possum.jpg",
+  lorikeet: "/animals/lorikeet.jpg", kookaburra: "/animals/kookaburra.jpg", pelican: "/animals/pelican.jpg", "flying-fox": "/animals/flying-fox.jpg", magpie: "/animals/magpie.jpg",
+  curlew: "/animals/curlew.jpg", "king-parrot": "/animals/king-parrot.jpg", "blue-tongue": "/animals/blue-tongue.jpg", currawong: "/animals/currawong.jpg", plover: "/animals/plover.jpg"
 };
 const catches = new Set();
 const knowledge = {
@@ -769,7 +774,7 @@ function renderGuide() {
   guideCount.textContent = `${catches.size} / ${creatures.length}`;
   guideList.innerHTML = creatures.map((creature) => `
     <button class="guide-entry ${catches.has(creature.id) ? "caught" : ""} ${selectedCreatureId === creature.id ? "selected" : ""}" type="button" data-creature-id="${creature.id}" ${catches.has(creature.id) ? "" : "disabled"}>
-      <span class="guide-icon" aria-hidden="true">${creatureIcons[creature.id]}</span>
+      ${catches.has(creature.id) ? `<img class="guide-photo" src="${creaturePhotos[creature.id]}" alt="" />` : `<span class="guide-icon" aria-hidden="true">${creatureIcons[creature.id]}</span>`}
       <div><strong>${catches.has(creature.id) ? creature.name : "Unknown creature"}</strong><small>${catches.has(creature.id) ? creature.subtitle : "Explore to discover"}</small></div>
     </button>
   `).join("");
@@ -781,7 +786,8 @@ function renderGuide() {
 function showCreatureCard(creature) {
   if (!creature || !catches.has(creature.id)) return;
   selectedCreatureId = creature.id;
-  dexPopoutIcon.textContent = creatureIcons[creature.id];
+  dexPopoutPhoto.src = creaturePhotos[creature.id];
+  dexPopoutPhoto.alt = `${creature.subtitle} photograph`;
   dexPopoutSpecies.textContent = creature.subtitle;
   dexPopoutName.textContent = creature.name;
   dexPopoutFound.innerHTML = `<strong>Found:</strong> ${creature.habitat}`;
